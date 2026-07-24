@@ -1,0 +1,8 @@
+fork(): splits the process into two, a parent and a child. returns 0 to the child and the child's pid to the parent so each side knows who it is. i call it in a loop to make 3 children.
+signal(SIGTERM, on_term): the child installs a handler, so when it gets SIGTERM it runs my on_term function and exits cleanly instead of just being killed by the default action. this is the actual signal handling part.
+waitpid(pids[i], &status, WNOHANG): WNOHANG means don't block, just check. i poll each child every second so i can actually tell who finished and who's still running, instead of assuming which one is stuck.
+kill(pids[i], SIGTERM): any child still alive after the grace period is treated as unresponsive, so i send it SIGTERM.
+waitpid(pids[i], &status, 0): after killing it i wait on it to reap it, otherwise it'd sit there as a zombie. WIFEXITED being true confirms the child's handler ran and it exited cleanly rather than being force-killed.
+
+observations:
+fork makes the kids, the WNOHANG polling is the monitoring, the child's own handler deals with SIGTERM, and waitpid reaps everything so there are no zombies. the two quick children finish on their own, the hanging one gets caught by the grace period and killed.

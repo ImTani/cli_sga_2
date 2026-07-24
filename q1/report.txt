@@ -1,0 +1,3 @@
+files processed: 5
+duplicates found: 2
+backed up: 3

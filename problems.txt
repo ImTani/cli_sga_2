@@ -1,0 +1,108 @@
+Please read the following instructions carefully before submitting your Graded Lab Assignment (Modules 5-10).
+
+1. Submission Format
+
+    You must submit the URL of a GitHub repository containing your complete lab assignment.
+
+    The repository must be public. (IMPORTANT)
+    Private repositories will not be graded and such cases would be awarded 0.
+
+    Ensure that all required files, outputs, screenshots, and explanations (as described below) are present within the repository.
+
+2. Repository Structure
+
+Your GitHub repository should contain a Folder each for the 5 Questions (Total 5 Folders) containing:
+
+    The commands executed for each question
+
+    Corresponding outputs
+
+    Screenshots of each command execution/output
+
+    Any files created during the lab (e.g., user_info.txt, plan.txt, system_report.txt, etc.)
+
+    Explanation as described below
+
+3. Explanation After Every Command (Very Important)
+
+    You must write 1-2 brief sentences explaining what you did and observed after each command or execution.
+
+    These explanations are mandatory and will be used to assess your conceptual understanding.
+
+    Submissions that only contain commands and outputs without explanations will be considered incomplete.
+
+Once again, ensure the repository you submit is public.
+Private repositories will not be graded and such cases would be awarded 0.
+
+
+There are a total of 5 Questions below.
+
+Question 1 [4 Marks]
+
+A university Linux server stores assignment submissions from hundreds of students.
+
+Design a shell script that:
+
+    Identifies duplicate submissions.
+
+    Creates a backup of unique submissions.
+
+    Generates a report showing the number of files processed, duplicated, and backed up.
+
+    Stores all error messages separately.
+
+Justify the Linux commands, redirection operators, and file-handling techniques used in your solution.
+
+Question 2 [4 Marks]
+
+A web server occasionally becomes unresponsive due to excessive child processes.
+
+Design a C program that:
+
+    Creates child processes using fork().
+
+    Monitors their execution.
+
+    Prevents zombie processes.
+
+    Terminates unresponsive child processes using appropriate signals.
+
+Explain how process creation, waiting, and signal handling work together to solve this problem.
+
+Question 3 [4 Marks]
+
+A company wants to build a secure file-processing utility using Linux system calls instead of standard library functions.
+
+Design the logic of a program that:
+
+    Creates a file.
+
+    Writes employee records.
+
+    Updates specific records without rewriting the entire file.
+
+    Retrieves records from any location efficiently.
+
+Explain how open(), read(), write(), lseek(), and close() contribute to the solution.
+
+Question 4 [4 Marks]
+
+A system administrator wants a monitoring tool that continuously analyzes a log file.
+
+The tool should:
+
+    Display newly added log entries in real time.
+
+    Extract ERROR messages.
+
+    Maintain a separate report file.
+
+    Suppress unnecessary output.
+
+Design the command pipeline and explain how pipes, grep, tail, redirection, and /dev/null improve efficiency.
+
+Question 5 [4 Marks]
+
+A software developer is editing a critical configuration file using vi. During editing, the system crashes before the file is saved.
+
+Evaluate the different recovery mechanisms available in vi (swap files, undo history, registers, backup files, and auto-recovery). Propose the most reliable recovery strategy and justify your answer.

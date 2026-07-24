@@ -1,0 +1,7 @@
+23:45:24 INFO  request 1 handled
+23:45:25 INFO  request 2 handled
+23:45:25 ERROR request 2 failed
+23:45:26 INFO  request 3 handled
+23:45:27 INFO  request 4 handled
+23:45:27 ERROR request 4 failed
+23:45:28 INFO  request 5 handled

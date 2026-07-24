@@ -1,0 +1,8 @@
+open("employees.dat", O_RDWR | O_CREAT | O_TRUNC, 0644): opens the file for read+write, makes it if it's missing, empties it if it's there. gives back a file descriptor i use for everything else.
+write(fd, ...): writes the raw struct bytes straight into the file. i check the return against the size so a short write doesn't quietly corrupt a record, since it's meant to be a secure utility.
+lseek(fd, 1 * sizeof(struct employee), SEEK_SET): jumps to a byte offset. every record is the same size so record n sits at n * size. this is what lets me overwrite just bob without touching the rest.
+read(fd, &r, sizeof(r)): reads one record from wherever the position is, so after an lseek i can grab any record directly instead of reading everything before it. i check its return the same way as write.
+close(fd): closes the file.
+
+observations:
+the fixed record size is the whole trick, every record's position is easy to work out so lseek can jump anywhere in one go. after updating record 2 and reading it back, bob was at 55000 and alice and carol were unchanged.

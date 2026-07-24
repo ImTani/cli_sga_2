@@ -1,0 +1,29 @@
+md5sum "$file":
+- makes a fingerprint of a file from its contents.
+- two files with the same contents get the same fingerprint even if the names are different.
+- so i can find duplicates without comparing every file against every other one.
+
+cut -d ' ' -f1:
+- md5sum prints the hash then the filename, i cut on the space and keep the first bit which is the hash.
+
+declare -A seen:
+- an associative array, basically a dictionary like in python.
+- i use it to remember which hashes i've already seen.
+
+mkdir -p backup:
+- makes the backup folder, -p means don't error if it's already there.
+
+cp "$file" backup/:
+- copies a unique file into the backup folder.
+
+2>>errors.log:
+- sends errors (stderr) into errors.log instead of the screen, keeps them separate.
+
+> report.txt:
+- writes the counts into report.txt.
+
+observations:
+it all runs off the md5sum fingerprint. i keep a dict of the hashes i've seen, first time a hash
+shows up i back the file up, if it shows up again it's a duplicate. a file i can't read isn't
+counted as processed, it just goes to errors.log. on the 5 files with 2 dupes it gave 5 processed,
+2 duplicates, 3 backed up.

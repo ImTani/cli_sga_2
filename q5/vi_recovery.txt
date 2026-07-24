@@ -1,0 +1,46 @@
+question 5 - recovering a file in vi after a crash
+
+so the situation is i was editing a config file in vi and the system crashed before i saved it.
+below i go through each recovery thing vi has and what it actually saves, then pick the one i'd
+trust most for this case. one thing up front: most of these (swap files, undofile, the recovery
+prompt) are really vim features, and on this machine vi is actually vim, so they're available.
+
+swap file (.swp):
+- while you edit, vim quietly keeps a swap file (like .config.txt.swp) and writes your changes into
+  it as you go, without you saving.
+- so after a crash the swap still has your unsaved changes from right before it died.
+- you get them back with "vim -r config.txt", or vim offers to recover when you open the file again.
+
+undo history:
+- "u" undoes changes and vim keeps an undo tree for the session.
+- but by default this is in memory so a crash loses it. it only survives if you set an undofile
+  (:set undofile) which writes it to disk, and i didn't have that turned on.
+- good for undoing a bad edit, not really a crash thing unless you set it up first.
+
+registers:
+- registers hold text you yanked or deleted during the session.
+- also in memory, so a crash loses them. handy while editing but no help after a crash.
+
+backup files:
+- with :set backup vim keeps a copy of the file as it was before your edits (config.txt~).
+- but that's the last SAVED version, which is the exact thing i didn't lose. it doesn't have my
+  unsaved changes.
+
+auto-recovery:
+- this is basically the swap file showing up on its own. open a file that still has a leftover swap
+  and vim warns you and offers to recover it.
+- so it's the same protection as the swap file, just it prompts you instead of you running vim -r.
+
+most reliable:
+the swap file (and the auto-recovery prompt that uses it). it's the only one that saves my UNSAVED
+changes without me having set anything up first. registers and normal undo are in memory so the crash
+takes them, and backups only give me the old saved version i already had. the swap file gets written
+in the background the whole time, so recovering from it gets me closest to where i was when it crashed.
+it's not flawless, the swap only holds what actually got flushed to it, so a crash right in the middle
+of an edit could leave it a little behind or a bit incomplete. but out of these five it's still the
+best shot at getting unsaved work back.
+
+observations:
+I tested this, edited config.txt, added a line without saving, then killed vim to fake a crash. a
+.config.txt.swp file was sitting there, and "vim -r config.txt" brought the unsaved line back. after
+that i saved with :w and deleted the swap file.

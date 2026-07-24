@@ -1,0 +1,8 @@
+tail -n0 -f app.log: follows the file and prints only NEW lines from when it starts. without -n0 tail first dumps the last 10 lines, which would re-report old errors, so -n0 keeps it to genuinely new entries.
+| (pipe): sends one command's output into the next as input, so tail's live stream goes into grep.
+grep --line-buffered ERROR: keeps only the ERROR lines. --line-buffered so they come through right away and it stays live.
+tee -a errors_report.log: shows the errors on screen and appends them to the report at the same time.
+2>/dev/null: on tail, drops its stderr so a warning (like if the file gets rotated mid-follow) doesn't clutter the screen.
+timeout 7: stops tail after 7s, otherwise -f follows the file forever.
+
+so the pipe chains it, tail watches only new lines, grep filters down to the errors, and tee saves them while showing them. it caught the 2 new error lines and both ended up in errors_report.log.
